@@ -1,0 +1,31 @@
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+
+namespace DemoNetCoreDesignPattern.BuilderPattern
+{
+    public class App
+    {
+        public static void Run()
+        {
+            var macbookProBuilderNow = new MacbookProBuilderNow();
+            var macBookSeller = new MacBookSeller(macbookProBuilderNow);
+            Console.WriteLine(macBookSeller
+                .LowSpec()
+                .ToString());
+            Console.WriteLine(macBookSeller
+                .HighSpec()
+                .ToString());
+            Console.WriteLine(macbookProBuilderNow
+                .BuildCPU(new Processor("9.0GHz Intel Core i9"))
+                .BuildMemory(new Memory(32))
+                .BuildGraphics(new Graphics("Radeon Pro 880X 8GB"))
+                .BuildStorage(new Storage(1024))
+                .BuildKeyboard(new Keyboard("English"))
+                .Build()
+                .ToString());
+        }
+    }
+}
