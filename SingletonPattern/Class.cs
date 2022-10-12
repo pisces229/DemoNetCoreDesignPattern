@@ -10,7 +10,7 @@ namespace DemoNetCoreDesignPattern.SingletonPattern
     internal class Singleton
     {
         private int _count;
-        private static Singleton _instance;
+        private static Singleton? _instance;
         public Singleton()
         {
             _count = 0;
@@ -18,8 +18,8 @@ namespace DemoNetCoreDesignPattern.SingletonPattern
         [MethodImpl(MethodImplOptions.Synchronized)]
         public static Singleton GetInstance()
         {
-            return _instance ?? (_instance = new Singleton());
+            return _instance ??= new Singleton();
         }
-        public void Display() => Console.WriteLine($"[{this._count++}]");
+        public void Describe() => Console.WriteLine($"[{_count++}]");
     }
 }

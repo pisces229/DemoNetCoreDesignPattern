@@ -6,54 +6,28 @@ using System.Threading.Tasks;
 
 namespace DemoNetCoreDesignPattern.DecoratorPattern
 {
-    internal abstract class Item
+    internal abstract class Decorator
     {
-        protected Item? _item;
-        public Item(Item? item)
+        protected Decorator? _decorator;
+        public Decorator(Decorator? decorator)
         {
-            this._item = item;
+            _decorator = decorator;
         }
-        public abstract string Description();
-        public abstract int Cost();
+        public abstract string Describe();
     }
-    internal class Order : Item
+    internal class DefaultDecorator : Decorator
     {
-        public Order() : base(null)
-        { 
-        }
-        public override string Description() => "";
-        public override int Cost() => 0;
+        public DefaultDecorator() : base(null) {}
+        public override string Describe() => "[Default]";
     }
-    internal class Salad : Item
+    internal class FirstDecorator : Decorator
     {
-        public Salad(Item item) : base(item)
-        {
-        }
-        public override string Description() => this._item!.Description() + "[Salad]";
-        public override int Cost() => this._item!.Cost() + 30;
+        public FirstDecorator(Decorator? decorator) : base(decorator) {}
+        public override string Describe() => $"{_decorator!.Describe()}[First]";
     }
-    internal class Soup : Item
+    internal class SecondDecorator : Decorator
     {
-        public Soup(Item item) : base(item)
-        {
-        }
-        public override string Description() => this._item!.Description() + "[Soup]";
-        public override int Cost() => this._item!.Cost() + 500;
-    }
-    internal class MainMeal : Item
-    {
-        public MainMeal(Item item) : base(item)
-        {
-        }
-        public override string Description() => this._item!.Description() + "[MainMeal]";
-        public override int Cost() => this._item!.Cost() + 1000;
-    }
-    internal class Drink : Item
-    {
-        public Drink(Item item) : base(item)
-        {
-        }
-        public override string Description() => this._item!.Description() + "[Drink]";
-        public override int Cost() => this._item!.Cost() + 9;
+        public SecondDecorator(Decorator? decorator) : base(decorator) {}
+        public override string Describe() => $"{_decorator!.Describe()}[Second]";
     }
 }

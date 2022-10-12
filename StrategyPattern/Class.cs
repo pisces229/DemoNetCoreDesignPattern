@@ -6,54 +6,38 @@ using System.Threading.Tasks;
 
 namespace DemoNetCoreDesignPattern.StrategyPattern
 {
-    internal class Calculator
+    internal class Strategy
     {
         private IStrategy? _strategy;
-        public int Caculate(int a, int b) => this._strategy!.Caculate(a, b);
-        public void SetStrategy(DoType doType)
+        public void Describe() => _strategy!.Describe();
+        public void SetStrategy(StrategyType strategyType)
         {
-            switch (doType)
+            switch (strategyType)
             {
-                case DoType.ADD:
-                    this._strategy = new AddStrategy();
+                case StrategyType.First:
+                    _strategy = new FirstStrategy();
                     break;
-                case DoType.MINUS:
-                    this._strategy = new MinusStrategy();
-                    break;
-                case DoType.DIVIDE:
-                    this._strategy = new DivideStrategy();
-                    break;
-                case DoType.MULTYPLY:
-                    this._strategy = new MultyplyStrategy();
+                case StrategyType.Second:
+                    _strategy = new SecondStrategy();
                     break;
             }
         }
-        public enum DoType
-        {
-            ADD, 
-            MINUS, 
-            DIVIDE, 
-            MULTYPLY
-        }
+    }
+    internal enum StrategyType
+    {
+        First,
+        Second,
     }
     internal interface IStrategy
     {
-        public int Caculate(int a, int b);
+        public void Describe();
     }
-    internal class AddStrategy : IStrategy
+    internal class FirstStrategy : IStrategy
     {
-        public int Caculate(int a, int b) => a + b;
+        public void Describe() => Console.WriteLine("First");
     }
-    internal class MinusStrategy : IStrategy
+    internal class SecondStrategy : IStrategy
     {
-        public int Caculate(int a, int b) => a - b;
-    }
-    internal class MultyplyStrategy : IStrategy
-    {
-        public int Caculate(int a, int b) => a * b;
-    }
-    internal class DivideStrategy : IStrategy
-    {
-        public int Caculate(int a, int b) => a / b;
+        public void Describe() => Console.WriteLine("Second");
     }
 }

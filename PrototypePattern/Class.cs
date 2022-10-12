@@ -15,10 +15,12 @@ namespace DemoNetCoreDesignPattern.PrototypePattern
             Console.WriteLine($"[{this.GetHashCode()}][{this.Name}][{this.Birthday}]");
         }
         public Person Clone()
-        { 
-            var person = new Person();
-            person.Name = this.Name;
-            person.Birthday = this.Birthday;
+        {
+            var person = new Person
+            {
+                Name = this.Name,
+                Birthday = this.Birthday
+            };
             return person;   
         }
     }

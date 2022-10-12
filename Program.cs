@@ -10,7 +10,7 @@
 //DemoNetCoreDesignPattern.ObserverPattern.App.Run();
 // Command Pattern
 //DemoNetCoreDesignPattern.CommandPattern.App.Run();
-// DemoNetCore DesignPattern
+// Builder Pattern
 //DemoNetCoreDesignPattern.BuilderPattern.App.Run();
 // Template Method Pattern
 //DemoNetCoreDesignPattern.TemplateMethodPattern.App.Run();
@@ -19,4 +19,12 @@
 // Proxy Pattern
 //DemoNetCoreDesignPattern.ProxyPattern.App.Run();
 // Prototype Pattern
-DemoNetCoreDesignPattern.PrototypePattern.App.Run();
+//DemoNetCoreDesignPattern.PrototypePattern.App.Run();
+// Facade Pattern
+//DemoNetCoreDesignPattern.FacadePattern.App.Run();
+// State Pattern
+//DemoNetCoreDesignPattern.StatePattern.App.Run();
+// Memoto Pattern
+//DemoNetCoreDesignPattern.MemotoPattern.App.Run();
+// Flyweight Pattern
+DemoNetCoreDesignPattern.FlyweightPattern.App.Run();

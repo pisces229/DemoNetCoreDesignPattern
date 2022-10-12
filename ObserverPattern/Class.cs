@@ -15,7 +15,7 @@ namespace DemoNetCoreDesignPattern.ObserverPattern
     }
     internal interface IObserver
     {
-        public void Update();
+        public void Receive();
     }
     internal class Podcast : IObserverable
     {
@@ -26,7 +26,7 @@ namespace DemoNetCoreDesignPattern.ObserverPattern
             _name = name;
             _observers = new List<IObserver>();
         }
-        public string GetName() => this._name;
+        public string GetName() => _name;
         public void Add(IObserver observer)
         {
             _observers.Add(observer);
@@ -35,7 +35,7 @@ namespace DemoNetCoreDesignPattern.ObserverPattern
         {
             _observers.Remove(observer);
         }
-        public void NotifyObservers() => _observers.ForEach(observer => observer.Update());
+        public void NotifyObservers() => _observers.ForEach(observer => observer.Receive());
     }
     internal class Student : IObserver
     {
@@ -43,17 +43,13 @@ namespace DemoNetCoreDesignPattern.ObserverPattern
         private IObserverable? _observerable;
         public Student(string name)
         {
-            this._name = name;
+            _name = name;
         }
         public void Subscribe(IObserverable observerable)
         {
             observerable.Add(this);
-            this._observerable = observerable;
+           _observerable = observerable;
         }
-        public void Update()
-        {
-            Console.WriteLine($"[{this._name}] Listen to [{_observerable!.GetName()}]");
-        }
-
+        public void Receive() => Console.WriteLine($"[{_name}][{_observerable!.GetName()}]");
     }
 }

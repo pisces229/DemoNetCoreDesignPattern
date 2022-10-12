@@ -8,33 +8,38 @@ namespace DemoNetCoreDesignPattern.FactoryMethodPattern
 {
     internal interface IProduct
     {
-        void Describe();
+        public void Describe();
     }
-    internal class FrenchFries : IProduct
+    internal class FirstProduct : IProduct
     {
-        private readonly string _state = "Default";
-        public FrenchFries()
+        public void Describe() => Console.WriteLine("FirstProduct");
+    }
+    internal class SecondProduct : IProduct
+    {
+        public void Describe() => Console.WriteLine("SecondProduct");
+    }
+    internal interface IProductFactory
+    {
+        public IProduct? CreateProduct(Product product);
+    }
+    internal class ProductFactory : IProductFactory
+    {
+        public IProduct? CreateProduct(Product product)
         {
-        }
-        public FrenchFries(string state)
-        {
-            this._state = state;
-        }
-        public void Describe()
-        {
-            Console.WriteLine($"This is [{this._state}]");
+            switch (product)
+            {
+                case Product.First:
+                    return new FirstProduct();
+                case Product.Second:
+                    return new SecondProduct();
+                default:
+                    return null;
+            }
         }
     }
-    internal interface IFactory
-    {
-        IProduct GetProduct();
-    }
-    internal class FrenchFriesFactory : IFactory
-    {
-        public FrenchFriesFactory()
-        {
-        }
-        public IProduct GetProduct() => new FrenchFries();
-        public IProduct GetProduct(string state) => new FrenchFries(state);
+    internal enum Product
+    { 
+        First,
+        Second,
     }
 }

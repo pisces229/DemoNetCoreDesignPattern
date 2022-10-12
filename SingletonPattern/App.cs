@@ -12,10 +12,10 @@ namespace DemoNetCoreDesignPattern.SingletonPattern
         {
             for (var i = 0; i < 100; i++)
             {
-                Task.Run(() => Singleton.GetInstance().Display());
+                Task.Run(() => Singleton.GetInstance().Describe());
             }
             Thread.Sleep(1000);
-            Singleton.GetInstance().Display();
+            Singleton.GetInstance().Describe();
         }
     }
 }

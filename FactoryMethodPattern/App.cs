@@ -10,11 +10,9 @@ namespace DemoNetCoreDesignPattern.FactoryMethodPattern
     {
         public static void Run()
         {
-            var friesFactory = new FrenchFriesFactory();
-            var FriesFirst = friesFactory.GetProduct();
-            var FriesSecond = friesFactory.GetProduct("Salt");
-            FriesFirst.Describe();
-            FriesSecond.Describe();
+            var productFactory = new ProductFactory();
+            productFactory.CreateProduct(Product.First)!.Describe();
+            productFactory.CreateProduct(Product.Second)!.Describe();
         }
     }
 }

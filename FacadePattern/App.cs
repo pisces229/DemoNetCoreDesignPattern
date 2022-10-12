@@ -4,16 +4,15 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace DemoNetCoreDesignPattern.AdapterPattern
+namespace DemoNetCoreDesignPattern.FacadePattern
 {
     public class App
     {
         public static void Run()
         {
-            var adaptee = new Adaptee();
-            adaptee.Describe();
-            var adapter = new Adapter(adaptee);
-            adapter.Describe();
+            var facade = new Facade();
+            facade.MethodOneAndTwo();
+            facade.MethodThree();
         }
     }
 }

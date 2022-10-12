@@ -6,46 +6,21 @@ using System.Threading.Tasks;
 
 namespace DemoNetCoreDesignPattern.AdapterPattern
 {
-    internal class BlackMan
+    internal interface ITarget
     {
-        private readonly string _name;
-        public BlackMan(string name)
-        {
-            this._name = name;
-        }
-        public string GetName() => this._name;
-        public void HelloEnglish()
-            => Console.WriteLine($"{this.GetName()}:BlackMan.HelloEnglish");
-        public void IntroduceEnglish()
-            => Console.WriteLine($"{this.GetName()}:BlackMan.IntroduceEnglish");
+        public void Describe();
     }
-    internal abstract class People
+    internal class Adapter : ITarget
     {
-        private readonly string _name;
-        public People(string name)
+        private readonly Adaptee _adaptee;
+        public Adapter(Adaptee adaptee)
         {
-            this._name = name;
+            _adaptee = adaptee;
         }
-        public string GetName() => this._name;
-        public abstract void Hello();
-        public abstract void Introduce();
+        public void Describe() => _adaptee.Describe();
     }
-    internal class BlackmanTranslator : People
+    internal class Adaptee
     {
-        public BlackmanTranslator(string name) : base(name) { }
-        public override void Hello()
-            => Console.WriteLine($"{this.GetName()}:BlackmanTranslator.Hello");
-        public override void Introduce()
-            => Console.WriteLine($"{this.GetName()}:BlackmanTranslator.Introduce");
-    }
-    internal class TaiwanMan
-    {
-        private readonly People _people;
-        public TaiwanMan(People people)
-        {
-            this._people = people;
-        }
-        public void Hello() => this._people.Hello();
-        public void Introduce() => this._people.Introduce();
+        public void Describe() => Console.WriteLine("Adaptee.Describe");
     }
 }

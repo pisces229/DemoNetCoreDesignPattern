@@ -6,50 +6,50 @@ using System.Threading.Tasks;
 
 namespace DemoNetCoreDesignPattern.CommandPattern
 {
-    internal class Light
+    internal class All
     {
-        public void TurnOn() => Console.WriteLine("Turn On");
-        public void TurnOff() =>Console.WriteLine("Turn Off");
-        public void Brighter() => Console.WriteLine("Brighter");
-        public void Darker() => Console.WriteLine("Darker");
+        public void First() => Console.WriteLine("First");
+        public void Second() =>Console.WriteLine("Second");
+        public void Third() => Console.WriteLine("Third");
     }
     internal abstract class Command
     {
-        protected readonly Light _light;
-        public Command(Light light)
+        protected readonly All _all;
+        public Command(All all)
         {
-            this._light = light;
+            _all = all;
         }
-        public abstract void Execute();
+        public abstract void Describe();
     }
-    internal class TurnOn : Command
+    internal class First : Command
     {
-        public TurnOn(Light light) : base(light) { }
-        public override void Execute() => this._light.TurnOn();
+        public First(All all) : base(all) { }
+        public override void Describe() => _all.First();
     }
-    internal class TurnOff : Command
+    internal class Second : Command
     {
-        public TurnOff(Light light) : base(light) { }
-        public override void Execute() => this._light.TurnOff();
+        public Second(All all) : base(all) { }
+        public override void Describe() => _all.Second();
     }
-    internal class Brighter : Command
+    internal class Third : Command
     {
-        public Brighter(Light light) : base(light) { }
-        public override void Execute() => this._light.Brighter();
-    }
-    internal class Darker : Command
-    {
-        public Darker(Light light) : base(light) { }
-        public override void Execute() => this._light.Darker();
+        public Third(All all) : base(all) { }
+        public override void Describe() => _all.Third();
     }
     internal class Invoker
     {
+        private Command? _command;
+        public void Set(Command command) => _command = command;
+        public void Describe() => _command!.Describe();
+    }
+    internal class Queuer
+    {
         private readonly List<Command> _commands;
-        public Invoker()
+        public Queuer()
         {
             _commands = new List<Command>();
         }
-        public void Add(Command command) => _commands.Add(command);
-        public void Execute() => _commands.ForEach(command => command.Execute());
+        public void Add(params Command[] command) => _commands.AddRange(command);
+        public void Describe() => _commands.ForEach(command => command.Describe());
     }
 }

@@ -10,13 +10,11 @@ namespace DemoNetCoreDesignPattern.DecoratorPattern
     {
         public static void Run()
         {
-            Item order = new Order();
-            order = new Salad(order);
-            order = new Soup(order);
-            order = new MainMeal(order);
-            order = new Drink(order);
-            Console.WriteLine(order.Description());
-            Console.WriteLine(order.Cost());
+            Decorator decorator = new DefaultDecorator();
+            decorator = new FirstDecorator(decorator);
+            decorator = new SecondDecorator(decorator);
+            decorator = new FirstDecorator(decorator);
+            Console.WriteLine(decorator.Describe());
         }
     }
 }

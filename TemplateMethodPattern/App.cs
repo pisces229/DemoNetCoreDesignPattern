@@ -10,8 +10,11 @@ namespace DemoNetCoreDesignPattern.TemplateMethodPattern
     {
         public static void Run()
         {
-            var softwareManager = new SoftwareManager();
-            softwareManager.Complete();
+            var firstWorkTemplate = new FirstWorkTemplate(new SecondRestTemplate());
+            firstWorkTemplate.Describe();
+            Console.WriteLine("----------");
+            var secondWorkTemplate = new SecondWorkTemplate(new FirstRestTemplate());
+            secondWorkTemplate.Describe();
         }
     }
 }

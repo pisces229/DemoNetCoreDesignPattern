@@ -6,24 +6,53 @@ using System.Threading.Tasks;
 
 namespace DemoNetCoreDesignPattern.TemplateMethodPattern
 {
-    internal abstract class BossMethod
+    internal abstract class WorkTemplate
     {
-        public abstract string UIDesign();
-        public abstract string SystemAnalysis();
-        public abstract string SystemDesign();
-        public abstract string Programming();
-        public abstract string Test();
-        public void Complete()
+        private readonly RestTemplate _restTemplate;
+        public WorkTemplate(RestTemplate restTemplate)
         {
-            Console.WriteLine($"[{UIDesign()}][{SystemAnalysis()}][{SystemDesign()}][{Programming()}][{Test()}]");
+            _restTemplate = restTemplate;
+        }
+        public void Start() => Console.WriteLine("Work.Start");
+        public abstract void Work();
+        public void Stop() => Console.WriteLine("Work.Stop");
+        public void Describe()
+        {
+            Start();
+            Work();
+            _restTemplate.Describe();
+            Work();
+            Stop();
         }
     }
-    internal class SoftwareManager : BossMethod 
+    internal class FirstWorkTemplate : WorkTemplate
     {
-        public override string UIDesign() => "UIDesign";
-        public override string SystemAnalysis() => "SystemAnalysis";
-        public override string SystemDesign() => "SystemDesign";
-        public override string Programming() => "Programming";
-        public override string Test() => "Test";
+        public FirstWorkTemplate(RestTemplate restTemplate) : base(restTemplate) { }
+        public override void Work() => Console.WriteLine("Work.First");
+    }
+    internal class SecondWorkTemplate : WorkTemplate
+    {
+        public SecondWorkTemplate(RestTemplate restTemplate) : base(restTemplate) { }
+        public override void Work() => Console.WriteLine("Work.Second");
+    }
+    internal abstract class RestTemplate
+    {
+        public void Start() => Console.WriteLine("Rest.Start");
+        public abstract void Rest();
+        public void Stop() => Console.WriteLine("Rest.Stop");
+        public void Describe()
+        {
+            Start();
+            Rest();
+            Stop();
+        }
+    }
+    internal class FirstRestTemplate : RestTemplate
+    {
+        public override void Rest() => Console.WriteLine("Rest.First");
+    }
+    internal class SecondRestTemplate : RestTemplate
+    {
+        public override void Rest() => Console.WriteLine("Rest.Second");
     }
 }
