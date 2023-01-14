@@ -143,3 +143,5 @@
 [深入淺出設計模式筆記](http://corrupt003-design-pattern.blogspot.com/2017/02/blog-post.html)
 
 [維基百科](https://zh.wikipedia.org/zh-tw/)
+
+[Class Diagram類別圖](https://ithelp.ithome.com.tw/articles/10269231)
