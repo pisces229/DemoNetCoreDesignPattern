@@ -1,8 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace DemoNetCoreDesignPattern.DecoratorPattern
 {
@@ -10,11 +6,13 @@ namespace DemoNetCoreDesignPattern.DecoratorPattern
     {
         public static void Run()
         {
-            Decorator decorator = new DefaultDecorator();
-            decorator = new FirstDecorator(decorator);
-            decorator = new SecondDecorator(decorator);
-            decorator = new FirstDecorator(decorator);
-            Console.WriteLine(decorator.Describe());
+            IDecorator product = new Product();
+            product = new FirstDecorator(product);
+            product = new SecondDecorator(product);
+            product = new SecondDecorator(product);
+            product = new FirstDecorator(product);
+            Console.WriteLine(product.Cost());
+            Console.WriteLine(product.Describe());
         }
     }
 }

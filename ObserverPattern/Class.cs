@@ -1,8 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace DemoNetCoreDesignPattern.ObserverPattern
 {
@@ -11,11 +7,11 @@ namespace DemoNetCoreDesignPattern.ObserverPattern
         public string GetName();
         public void Add(IObserver observer);
         public void Remove(IObserver observer);
-        public void NotifyObservers();
+        public void NotifyObservers(string message);
     }
     internal interface IObserver
     {
-        public void Receive();
+        public void Receive(string message);
     }
     internal class Podcast : IObserverable
     {
@@ -35,21 +31,20 @@ namespace DemoNetCoreDesignPattern.ObserverPattern
         {
             _observers.Remove(observer);
         }
-        public void NotifyObservers() => _observers.ForEach(observer => observer.Receive());
+        public void NotifyObservers(string message) 
+            => _observers.ForEach(observer => observer.Receive(message));
     }
     internal class Student : IObserver
     {
-        private readonly string _name;
-        private IObserverable? _observerable;
-        public Student(string name)
+        private readonly int _id;
+        private IObserverable _observerable;
+        public Student(IObserverable observerable)
         {
-            _name = name;
-        }
-        public void Subscribe(IObserverable observerable)
-        {
+            _id = GetHashCode();
             observerable.Add(this);
-           _observerable = observerable;
+            _observerable = observerable;
         }
-        public void Receive() => Console.WriteLine($"[{_name}][{_observerable!.GetName()}]");
+        public void Receive(string message) 
+            => Console.WriteLine($"[{_observerable.GetName()}] Send [{message}] To [{_id}]");
     }
 }

@@ -1,8 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace DemoNetCoreDesignPattern.ObserverPattern
 {
@@ -10,12 +6,13 @@ namespace DemoNetCoreDesignPattern.ObserverPattern
     {
         public static void Run()
         {
-            var podcast = new Podcast("Podcast");
-            var studentFirst = new Student("StudentFirst");
-            var studentSecond = new Student("StudentSecond");
-            studentFirst.Subscribe(podcast);
-            studentSecond.Subscribe(podcast);
-            podcast.NotifyObservers();
+            var podcastA = new Podcast("PodcastA");
+            var podcastB = new Podcast("PodcastB");
+            _ = new Student(podcastA);
+            _ = new Student(podcastA);
+            _ = new Student(podcastB);
+            podcastA.NotifyObservers("Hi");
+            podcastB.NotifyObservers("Hello");
         }
     }
 }
