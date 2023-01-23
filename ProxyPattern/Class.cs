@@ -1,8 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace DemoNetCoreDesignPattern.ProxyPattern
 {
@@ -22,13 +18,13 @@ namespace DemoNetCoreDesignPattern.ProxyPattern
         private readonly IProxy _user;
         public Agent(IProxy user)
         { 
-            this._user = user;
+            _user = user;
         }
         public void DoSomething()
         {
-            Console.WriteLine("User.DoSomething.Before");
+            Console.WriteLine("Agent.DoSomething.Start");
             _user.DoSomething();
-            Console.WriteLine("User.DoSomething.After");
+            Console.WriteLine("Agent.DoSomething.End");
         }
     }
 }

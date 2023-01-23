@@ -1,8 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace DemoNetCoreDesignPattern.BuilderPattern
 {
@@ -10,15 +6,15 @@ namespace DemoNetCoreDesignPattern.BuilderPattern
     {
         public static void Run()
         {
-            var macbookProBuilderNow = new MacbookProBuilderNow();
-            var macBookSeller = new MacBookSeller(macbookProBuilderNow);
+            var macbookProBuilder = new MacbookProBuilder();
+            var macBookSeller = new MacBookSeller(macbookProBuilder);
             Console.WriteLine(macBookSeller
                 .LowSpec()
                 .ToString());
             Console.WriteLine(macBookSeller
                 .HighSpec()
                 .ToString());
-            Console.WriteLine(macbookProBuilderNow
+            Console.WriteLine(macbookProBuilder
                 .BuildCPU(new Processor("9.0GHz Intel Core i9"))
                 .BuildMemory(new Memory(32))
                 .BuildGraphics(new Graphics("Radeon Pro 880X 8GB"))

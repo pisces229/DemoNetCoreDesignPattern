@@ -1,9 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Diagnostics;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace DemoNetCoreDesignPattern.BuilderPattern
 {
@@ -16,11 +11,11 @@ namespace DemoNetCoreDesignPattern.BuilderPattern
         public Keyboard? Keyboard { get; set; }
         public override string ToString() => 
         $@"
-            Processor:[{this.Processor!.GetName()}]
-            Memory:[{this.Memory!.GetSize()}]
-            Storage:[{this.Storage!.GetSize()}]
-            Graphics:[{this.Graphics!.GetName()}]
-            Keyboard:[{this.Keyboard!.GetName()}]
+            Processor:[{Processor!.GetName()}]
+            Memory:[{Memory!.GetSize()}]
+            Storage:[{Storage!.GetSize()}]
+            Graphics:[{Graphics!.GetName()}]
+            Keyboard:[{Keyboard!.GetName()}]
         ";
     }
     internal class Processor
@@ -28,9 +23,9 @@ namespace DemoNetCoreDesignPattern.BuilderPattern
         private readonly string _name;
         public Processor(string name)
         {
-            this._name = name;
+            _name = name;
         }
-        public string GetName() => this._name;
+        public string GetName() => _name;
     }
 
     internal class Memory
@@ -38,87 +33,86 @@ namespace DemoNetCoreDesignPattern.BuilderPattern
         private readonly int _size;
         public Memory(int size)
         {
-            this._size = size;
+            _size = size;
         }
-        public int GetSize() => this._size;
+        public int GetSize() => _size;
     }
     internal class Storage
     {
         private readonly int _size;
         public Storage(int size)
         {
-            this._size = size;
+            _size = size;
         }
-        public int GetSize() => this._size;
+        public int GetSize() => _size;
     }
     internal class Graphics
     {
         private readonly string _name;
         public Graphics(string name)
         {
-            this._name = name;
+            _name = name;
         }
-        public string GetName() => this._name;
+        public string GetName() => _name;
     }
     internal class Keyboard
     {
         private readonly string _name;
         public Keyboard(string name)
         {
-            this._name = name;
+            _name = name;
         }
-        public string GetName() => this._name;
+        public string GetName() => _name;
     }
-    internal abstract class MacbookProBuilder
+    internal interface IMacbookProBuilder
+    {
+        public IMacbookProBuilder BuildCPU(Processor processor);
+        public IMacbookProBuilder BuildMemory(Memory size);
+        public IMacbookProBuilder BuildGraphics(Graphics name);
+        public IMacbookProBuilder BuildStorage(Storage size);
+        public IMacbookProBuilder BuildKeyboard(Keyboard language);
+        public MacbookPro Build();
+    }
+    internal class MacbookProBuilder : IMacbookProBuilder
     {
         protected readonly MacbookPro _macbookPro;
         public MacbookProBuilder()
         {
             _macbookPro = new MacbookPro();
         }
-        public abstract MacbookProBuilder BuildCPU(Processor processor);
-        public abstract MacbookProBuilder BuildMemory(Memory size);
-        public abstract MacbookProBuilder BuildGraphics(Graphics name);
-        public abstract MacbookProBuilder BuildStorage(Storage size);
-        public abstract MacbookProBuilder BuildKeyboard(Keyboard language);
-        public MacbookPro Build() => this._macbookPro;
-    }
-    internal class MacbookProBuilderNow : MacbookProBuilder
-    {
-        public MacbookProBuilderNow() : base() {}
-        public override MacbookProBuilder BuildCPU(Processor processor) 
+        public IMacbookProBuilder BuildCPU(Processor processor) 
         {
-            this._macbookPro.Processor = processor;
+            _macbookPro.Processor = processor;
             return this;
         }
-        public override MacbookProBuilder BuildMemory(Memory memory) 
+        public IMacbookProBuilder BuildMemory(Memory memory) 
         {
-            this._macbookPro.Memory = memory;
+            _macbookPro.Memory = memory;
             return this;
         }
-        public override MacbookProBuilder BuildGraphics(Graphics graphics) 
+        public IMacbookProBuilder BuildGraphics(Graphics graphics) 
         {
-            this._macbookPro.Graphics = graphics;
+            _macbookPro.Graphics = graphics;
             return this;
         }
-        public override MacbookProBuilder BuildStorage(Storage storage) 
+        public IMacbookProBuilder BuildStorage(Storage storage) 
         {
-            this._macbookPro.Storage = storage;
+            _macbookPro.Storage = storage;
             return this;
         }
-        public override MacbookProBuilder BuildKeyboard(Keyboard kyboard) 
+        public IMacbookProBuilder BuildKeyboard(Keyboard kyboard) 
         {
-            this._macbookPro.Keyboard = kyboard;
+            _macbookPro.Keyboard = kyboard;
             return this;
         }
-        public new MacbookPro Build() => base.Build();
+        public MacbookPro Build() => _macbookPro;
     }
     internal class MacBookSeller
     {
-        private readonly MacbookProBuilder _macbookProBuilder;
-        public MacBookSeller(MacbookProBuilder macbookProBuilder)
+        private readonly IMacbookProBuilder _macbookProBuilder;
+        public MacBookSeller(IMacbookProBuilder macbookProBuilder)
         {
-            this._macbookProBuilder = macbookProBuilder;
+           _macbookProBuilder = macbookProBuilder;
         }
         public MacbookPro LowSpec() => _macbookProBuilder
             .BuildCPU(new Processor("5.0GHz Intel Core i5"))
