@@ -2,4 +2,4 @@
 
 Console.WriteLine("DemoNetCoreDesignPattern");
 
-App.Run(Pattern.BuilderPattern);
+App.Run(Pattern.ChainOfResponsibilityPattern);

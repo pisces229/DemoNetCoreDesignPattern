@@ -24,58 +24,50 @@ namespace DemoNetCoreDesignPattern.ChainOfResponsibilityPattern
         {
             _handler = handler;
         }
-        public abstract void HandleRequest(Thing thing);
-    }
-    internal class EntryHandler : Handler
-    {
-        public EntryHandler() : base(new FirstHandler()) { }
-        public override void HandleRequest(Thing thing)
-        {
-            if (_handler != null)
-            {
-                _handler.HandleRequest(thing);
-            }
-            else
-            {
-                Console.WriteLine($"EntryHandler.Finally.[{thing.Name()}]");
-            }
-        }
+        public abstract void Next(Thing thing);
     }
     internal class FirstHandler : Handler
     {
-        public FirstHandler() : base(new SecondHandler()) { }
-        public override void HandleRequest(Thing thing)
+        public FirstHandler(Handler? handler) : base(handler) { }
+        public override void Next(Thing thing)
         {
             if ("First" == thing.Name())
             {
-                Console.WriteLine($"FirstHandler.Cache.[{thing.Name()}]");
-            }
-            else if (_handler != null)
-            {
-                _handler.HandleRequest(thing);
+                Console.WriteLine($"FirstHandler");
             }
             else
             {
-                Console.WriteLine($"FirstHandler.Finally.[{thing.Name()}]");
+                _handler?.Next(thing);
             }
         }
     }
     internal class SecondHandler : Handler
     {
-        public SecondHandler() : base(null) { }
-        public override void HandleRequest(Thing thing)
+        public SecondHandler(Handler? handler) : base(handler) { }
+        public override void Next(Thing thing)
         {
             if ("Second" == thing.Name())
             {
-                Console.WriteLine($"SecondHandler.Cache.[{thing.Name()}]");
+                Console.WriteLine($"SecondHandler");
             }
             else if (_handler != null)
             {
-                _handler.HandleRequest(thing);
+                _handler.Next(thing);
+            }
+        }
+    }
+    internal class ThirdHandler : Handler
+    {
+        public ThirdHandler(Handler? handler) : base(handler) { }
+        public override void Next(Thing thing)
+        {
+            if ("Third" == thing.Name())
+            {
+                Console.WriteLine($"ThirdHandler");
             }
             else
             {
-                Console.WriteLine($"SecondHandler.Finally.[{thing.Name()}]");
+                _handler?.Next(thing);
             }
         }
     }
