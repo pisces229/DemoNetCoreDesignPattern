@@ -140,6 +140,8 @@
 
 [初探設計模式](https://ithelp.ithome.com.tw/users/20112528/ironman/2113) 
 
+[從生活中認識Design Pattern](https://ithelp.ithome.com.tw/users/20128314/ironman/3070)
+
 [深入淺出設計模式筆記](http://corrupt003-design-pattern.blogspot.com/2017/02/blog-post.html)
 
 [維基百科](https://zh.wikipedia.org/zh-tw/)
